@@ -1,0 +1,12 @@
+tarantool:
+  image: tarantool/tarantool
+  volumes:
+    - ./lua:/lua
+  volumes_from:
+    - tarantool-data
+  command: /usr/bin/tarantool /lua/boot.lua
+
+tarantool-data:
+  image: busybox
+  volumes:
+    - /data
