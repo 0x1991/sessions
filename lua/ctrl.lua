@@ -1,3 +1,5 @@
+local sBox = require '/lua/sBox'
+
 local function test(req)
     local host = req.peer.host
     local response = {
