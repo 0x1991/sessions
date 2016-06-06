@@ -41,6 +41,21 @@ local function new(req)
     }))
 end
 
+local function get(req)
+    local token, ip, info = req:param('token'), req:param('ip'), req:param('info') -- ip and info is optional
+    if (not token) then return rendError(req, 'token not found', 'token_not_found'); end
+
+    local updateData = { { '=', sBox.col.activity, os.time() } }
+    if (info and info ~= '') then table.insert(updateData, { '=', sBox.col.info, urlDecode(info) }) end
+    if (ip and ip ~= '') then table.insert(updateData, { '=', sBox.col.ip, ip }) end
+
+    local tuple = sBox.space:update(token, updateData)
+    if (not tuple) then return rendError(req, 'token not found', 'token_not_found'); end
+
+    return rendSuccess(req, tuple2Json(tuple))
+end
+
 return {
-    new = new
+    new = new,
+    get = get
 }
