@@ -55,7 +55,16 @@ local function get(req)
     return rendSuccess(req, tuple2Json(tuple))
 end
 
+local function del(req)
+    local token = req:param('token')
+    if (not token) then return rendError(req, 'token not found', 'token_not_found'); end
+    local tuple = sBox.space:delete(token)
+    if (not tuple) then return rendError(req, 'token not found', 'token_not_found'); end
+    return rendSuccess(req, tuple)
+end
+
 return {
     new = new,
-    get = get
+    get = get,
+    del = del
 }
