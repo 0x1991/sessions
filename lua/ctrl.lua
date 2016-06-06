@@ -63,8 +63,18 @@ local function del(req)
     return rendSuccess(req, tuple)
 end
 
+local function user(req)
+    local userId = req:param('id')
+    if (not tonumber(userId)) then return rendError(req, 'invalid userId', 'invalid_user_id') end
+    local tuples = sBox.space.index[sBox.index.userId]:select({ math.floor(userId) }, { iterator = 'REQ' })
+    local res = {}
+    for i = 1, #tuples, 1 do table.insert(res, tuple2Json(tuples[i])) end
+    return rendSuccess(req, res)
+end
+
 return {
     new = new,
     get = get,
-    del = del
+    del = del,
+    user = user
 }
