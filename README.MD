@@ -1,11 +1,9 @@
-Sessions service
-================
-Http REST API service for implementation users session logic, based on [Tarantool](http://tarantool.org/).
-
 Quick start
 -----------
-- Up docker-compose: `docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d`
-- New session request: `http://localhost/new?user_id=1&ip=192.168.1.1`, **profit:**
+1. Up docker-compose: `docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d`
+2. Make requests:
+
+New session request: `http://localhost/new?user_id=1&ip=192.168.1.1`
 ```json
 {
   "ip": "192.168.1.1",
@@ -16,7 +14,7 @@ Quick start
   "token": "61494096-9af7-49ba-9fb4-e89c0811e6d3"
 }
 ```
-- Get session request: `http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3`, **profit:**
+Get session request: `http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3`
 ```json
 {
   "ip": "192.168.1.1",
