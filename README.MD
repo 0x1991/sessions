@@ -2,7 +2,6 @@ Sessions service
 ================
 Http REST API service for implementation users session logic, based on [Tarantool](http://tarantool.org/).
 
-
 Quick start
 -----------
 - Up docker-compose: `docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d`
@@ -28,3 +27,9 @@ Quick start
   "token": "61494096-9af7-49ba-9fb4-e89c0811e6d3"
 }
 ```
+
+API documentation
+-----------------
+Each response can be one of 2 variants:
+- success: `{ status: 'success', data: array|object }`
+- error: `{ status: 'error', code: string, message: string }`
