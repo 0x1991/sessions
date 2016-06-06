@@ -17,7 +17,7 @@ local sBox = {
     },
     index = {
         token = 'token',
-        userId_activity = 'user_id_activity'
+        userId = 'user_id'
     },
     space = box.space[spaceName]
 }
@@ -30,7 +30,12 @@ box.once('sessions_tokenIndex', function()
         parts = { sBox.col.token, 'STR' }
     })
 end)
-
+box.once('sessions_userIdIndex', function()
+    sBox.space:create_index(sBox.index.userId, {
+        unique = false,
+        parts = { sBox.col.userId, 'NUM' }
+    })
+end)
 box.schema.user.grant('guest', 'read,write,execute', 'universe', nil, { if_not_exists = true })
 
 return sBox
