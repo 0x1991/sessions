@@ -4,8 +4,6 @@ box.cfg {
     slab_alloc_arena = 0.256
 }
 
-local spaceName = 'sessions'
-
 local sBox = {
     col = {
         token = 1,
@@ -19,22 +17,12 @@ local sBox = {
         token = 'token',
         userId = 'user_id'
     },
-    space = box.space[spaceName]
+    space = box.schema.create_space('sessions', { if_not_exists = true })
 }
 
-if not sBox.space then sBox.space = box.schema.create_space(spaceName) end
-
-box.once('sessions_tokenIndex', function()
-    sBox.space:create_index(sBox.index.token, {
-        type = 'HASH',
-        parts = { sBox.col.token, 'STR' }
-    })
-end)
-box.once('sessions_userIdIndex', function()
-    sBox.space:create_index(sBox.index.userId, {
-        unique = false,
-        parts = { sBox.col.userId, 'NUM' }
-    })
+box.once('sessions_index', function()
+    sBox.space:create_index(sBox.index.token, { type = 'HASH', parts = { sBox.col.token, 'STR' } })
+    sBox.space:create_index(sBox.index.userId, { unique = false, parts = { sBox.col.userId, 'NUM' } })
 end)
 box.schema.user.grant('guest', 'read,write,execute', 'universe', nil, { if_not_exists = true })
 
