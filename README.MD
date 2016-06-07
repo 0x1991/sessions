@@ -2,7 +2,7 @@ Quick start
 -----------
 Up docker-compose: 
 ```
-docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d
+docker-compose -f docker-compose.yml -f dc.sample.yml up -d
 ```
 Already done! Just use it like this:
 
