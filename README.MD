@@ -31,6 +31,25 @@ Get session: `http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3`
 
 API documentation
 -----------------
-Each response can be one of 2 variants:
-- success: `{ status: 'success', data: array|object }`
-- error: `{ status: 'error', code: string, message: string }`
+Each response can be one of two variants:
+
+* success: `{ status: 'success', data: array|object }`
+* error: `{ status: 'error', code: string, message: string }`
+
+Method | Success data | Error codes
+-------|--------------|------------
+new | [Session](.#session-object) | `invalid_user_id`
+get | [Session](.#session-object) | `token_not_found`
+del | [Session](.#session-object) | `token_not_found`
+user | [Session](.#session-object)[] | `invalid_user_id`
+
+##### Session object
+```
+{
+  "ip": string // IP-address of user,
+  "info": null,
+  "user_id": int,
+  "create": int // create session timestamp,
+  "activity": int // last timestamp of get request for current session,
+  "token": string
+}
