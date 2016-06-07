@@ -1,9 +1,12 @@
 Quick start
 -----------
-1. Up docker-compose: `docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d`
-2. Make requests:
+Up docker-compose: 
+```
+docker-compose -f docker-compose.yml -f dc.local.yml.sample up -d
+```
+Already done! Just use it like this:
 
-New session request: `http://localhost/new?user_id=1&ip=192.168.1.1`
+New session: `http://localhost/new?user_id=1&ip=192.168.1.1`
 ```json
 {
   "ip": "192.168.1.1",
@@ -14,7 +17,7 @@ New session request: `http://localhost/new?user_id=1&ip=192.168.1.1`
   "token": "61494096-9af7-49ba-9fb4-e89c0811e6d3"
 }
 ```
-Get session request: `http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3`
+Get session: `http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3`
 ```json
 {
   "ip": "192.168.1.1",
