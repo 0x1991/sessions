@@ -38,12 +38,12 @@ Each response can be one of two variants:
 
 Method | Success data | Error codes
 -------|--------------|------------
-new | [Session](.#session-object) | `invalid_user_id`
-get | [Session](.#session-object) | `token_not_found`
-del | [Session](.#session-object) | `token_not_found`
-user | [Session](.#session-object)[] | `invalid_user_id`
+new | [SessionObject](#sessionobject) | `invalid_user_id`
+get | [SessionObject](#sessionobject) | `token_not_found`
+del | [SessionObject](#sessionobject) | `token_not_found`
+user | [SessionObject](#sessionobject)[] | `invalid_user_id`
 
-##### Session object
+#### SessionObject
 ```
 {
   "ip": string // IP-address of user,
