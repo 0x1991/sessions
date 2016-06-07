@@ -36,12 +36,12 @@ Each response can be one of two variants:
 * success: `{ status: 'success', data: array|object }`
 * error: `{ status: 'error', code: string, message: string }`
 
-Method | Success data | Error codes
--------|--------------|------------
-new | [SessionObject](#sessionobject) | `invalid_user_id`
-get | [SessionObject](#sessionobject) | `token_not_found`
-del | [SessionObject](#sessionobject) | `token_not_found`
-user | [SessionObject](#sessionobject)[] | `invalid_user_id`
+Method | Description | Success data | Error codes
+-------|-------------|--------------|------------
+new | Create new session | [SessionObject](#sessionobject) | `invalid_user_id`
+get | Get existing session | [SessionObject](#sessionobject) | `token_not_found`
+del | Del existing session | [SessionObject](#sessionobject) | `token_not_found`
+user | Get all sessions for the user | [SessionObject](#sessionobject)[] | `invalid_user_id`
 
 #### SessionObject
 ```
