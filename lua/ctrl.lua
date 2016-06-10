@@ -17,14 +17,23 @@ local function tuple2Json(tuple)
         create = tuple[sBox.col.create],
         activity = tuple[sBox.col.activity],
         ip = ip and ip or json.NULL,
-        extra = table.getn(extra) > 0 and extra or json.NULL
+        extra = next(extra) and extra or json.NULL
     }
 end
 
-local function urlDecode(str)
-    str = string.gsub(str, "+", " ")
-    str = string.gsub(str, "%%(%x%x)", function(h) return string.char(tonumber(h, 16)) end)
-    return str
+local function post2Extra(_)
+    if "string" == type(_) then
+        _ = string.gsub(_, "+", " ")
+        _ = string.gsub(_, "%%(%x%x)", function(h) return string.char(tonumber(h, 16)) end)
+        return _
+    elseif "table" == type(_) then
+        for k, v in pairs(_) do
+            _[k] = post2Extra(v)
+        end
+    else
+        return _
+    end
+    return _
 end
 
 
@@ -38,7 +47,7 @@ local function new(req)
         ip,
         os.time(),
         os.time(),
-        extra
+        post2Extra(extra)
     }))
 end
 
@@ -47,7 +56,7 @@ local function get(req)
     if (not token) then return rendError(req, 'token not found', 'token_not_found'); end
 
     local updateData = { { '=', sBox.col.activity, os.time() } }
-    if (table.getn(extra) > 0) then table.insert(updateData, { '=', sBox.col.extra, extra }) end
+    if next(extra) then table.insert(updateData, { '=', sBox.col.extra, post2Extra(extra) }) end
     if (ip and ip ~= '') then table.insert(updateData, { '=', sBox.col.ip, ip }) end
 
     local tuple = sBox.space:update(token, updateData)
