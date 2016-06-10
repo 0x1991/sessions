@@ -10,13 +10,13 @@ local function rendError(req, message, code)
 end
 
 local function tuple2Json(tuple)
-    local ip, extra = tuple[sBox.col.ip], tuple[sBox.col.extra] -- optional cols
+    local extra = tuple[sBox.col.extra]
     return {
         token = tuple[sBox.col.token],
         user_id = tuple[sBox.col.userId],
         create = tuple[sBox.col.create],
         activity = tuple[sBox.col.activity],
-        ip = ip and ip or json.NULL,
+        ip = tuple[sBox.col.ip],
         extra = extra and (next(extra) and extra or json.NULL) or json.NULL
     }
 end
