@@ -33,23 +33,51 @@ API documentation
 -----------------
 Each response can be one of two variants:
 
-* success: `{ status: 'success', data: array|object }`
+* success: `{ status: 'success', data: array | object }`
 * error: `{ status: 'error', code: string, message: string }`
 
 Method | Params | Description | Success data | Error codes
 -------|--------|-------------|--------------|------------
-new | `user_id` <br> `ip` | Create new session | [SessionObject](#sessionobject) | `invalid_user_id` <br> `invalid_ip`
-get | `token` <br> `ip` *optional* | Get existing session | [SessionObject](#sessionobject) | `token_not_found`
+new* | `user_id` <br> `ip` | Create new session | [SessionObject](#sessionobject) | `invalid_user_id` <br> `invalid_ip`
+get* | `token` <br> `ip` *optional* | Get existing session | [SessionObject](#sessionobject) | `token_not_found`
 del | `token` | Del existing session | [SessionObject](#sessionobject) | `token_not_found`
 user | `id` | Get all sessions for the user | [SessionObject](#sessionobject)[] | `invalid_user_id`
+
+##### \* Support optional extra params:
+`new` and `get` methods allow inserting extra data for the session. Example for **request** by PHP:
+```php
+$context = stream_context_create([
+	'http' => [
+		'method'  => 'GET',
+		'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL,
+		'content' => http_build_query(['device'=>'Nexus 5', 'os'=> 'Android'])
+	]
+]);
+echo file_get_contents('http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0811e6d3', FALSE, $context)
+```
+**response:**
+```json
+"status": "success",
+"data": {
+  "ip": "192.168.1.1",
+  "extra": {
+    "os": "Android",
+    "device": "Nexus 5"
+  },
+  "user_id": 1,
+  "create": 1464909151,
+  "activity": 1465564426,
+  "token": "61494096-9af7-49ba-9fb4-e89c0811e6d3"
+}
+```
 
 #### SessionObject
 ```
 {
   "ip": string // IP-address of user,
-  "extra": null,
+  "extra": object | null, // extra data
   "user_id": int,
-  "create": int // create session timestamp,
-  "activity": int // last timestamp of get request for current session,
+  "create": int, // create session timestamp
+  "activity": int, // last timestamp of get request for current session
   "token": string
 }
