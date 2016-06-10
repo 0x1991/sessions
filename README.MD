@@ -81,3 +81,9 @@ echo file_get_contents('http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0
   "activity": int, // last timestamp of get request for current session
   "token": string
 }
+```
+
+
+Expiration
+----------
+Sessions removed automatically after 180 days inactivity by `get` requests
