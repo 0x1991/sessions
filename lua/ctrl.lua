@@ -75,8 +75,17 @@ end
 
 local function user(req)
     local userId = req:param('id')
-    if (not tonumber(userId)) then return rendError(req, 'invalid userId', 'invalid_user_id') end
+    if (not tonumber(userId)) then return rendError(req, 'invalid user id', 'invalid_user_id') end
     local tuples = sBox.space.index[sBox.index.userId]:select({ math.floor(userId) }, { iterator = 'REQ' })
+    local res = {}
+    for i = 1, #tuples, 1 do table.insert(res, tuple2Json(tuples[i])) end
+    return rendSuccess(req, res)
+end
+
+local function ip(req)
+    local ip = req:param('ip')
+    if (not ip) then return rendError(req, 'invalid ip', 'invalid_ip') end
+    local tuples = sBox.space.index[sBox.index.ip]:select({ ip }, { iterator = 'REQ' })
     local res = {}
     for i = 1, #tuples, 1 do table.insert(res, tuple2Json(tuples[i])) end
     return rendSuccess(req, res)
@@ -86,5 +95,6 @@ return {
     new = new,
     get = get,
     del = del,
-    user = user
+    user = user,
+    ip = ip
 }
