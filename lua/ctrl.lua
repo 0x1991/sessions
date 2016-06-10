@@ -1,4 +1,4 @@
-local json = require('json')
+local json = require 'json'
 local sBox = require '/lua/sBox'
 
 local function rendSuccess(req, data)
@@ -31,6 +31,7 @@ end
 local function new(req)
     local userId, ip, info = req:param('user_id'), req:param('ip'), req:param('info') -- info is optional
     if (not tonumber(userId)) then return rendError(req, 'invalid userId', 'invalid_user_id') end
+    if (not ip or ip == '') then return rendError(req, 'invalid ip', 'invalid_ip') end
     return rendSuccess(req, tuple2Json(sBox.space:insert {
         require('uuid').str(),
         math.floor(userId),

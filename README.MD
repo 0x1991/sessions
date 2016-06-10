@@ -38,7 +38,7 @@ Each response can be one of two variants:
 
 Method | Params | Description | Success data | Error codes
 -------|--------|-------------|--------------|------------
-new | `user_id` <br> `ip` *optional* | Create new session | [SessionObject](#sessionobject) | `invalid_user_id`
+new | `user_id` <br> `ip` | Create new session | [SessionObject](#sessionobject) | `invalid_user_id` <br> `invalid_ip`
 get | `token` <br> `ip` *optional* | Get existing session | [SessionObject](#sessionobject) | `token_not_found`
 del | `token` | Del existing session | [SessionObject](#sessionobject) | `token_not_found`
 user | `id` | Get all sessions for the user | [SessionObject](#sessionobject)[] | `invalid_user_id`
