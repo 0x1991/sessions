@@ -10,14 +10,14 @@ local function rendError(req, message, code)
 end
 
 local function tuple2Json(tuple)
-    local ip, info = tuple[sBox.col.ip], tuple[sBox.col.info] -- optional cols
+    local ip, extra = tuple[sBox.col.ip], tuple[sBox.col.extra] -- optional cols
     return {
         token = tuple[sBox.col.token],
         user_id = tuple[sBox.col.userId],
         create = tuple[sBox.col.create],
         activity = tuple[sBox.col.activity],
         ip = ip and ip or json.NULL,
-        info = info and info or json.NULL
+        extra = extra and extra or json.NULL
     }
 end
 
@@ -29,7 +29,7 @@ end
 
 
 local function new(req)
-    local userId, ip, info = req:param('user_id'), req:param('ip'), req:param('info') -- info is optional
+    local userId, ip, extra = req:param('user_id'), req:param('ip'), req:param('extra') -- extra is optional
     if (not tonumber(userId)) then return rendError(req, 'invalid userId', 'invalid_user_id') end
     if (not ip or ip == '') then return rendError(req, 'invalid ip', 'invalid_ip') end
     return rendSuccess(req, tuple2Json(sBox.space:insert {
@@ -38,16 +38,16 @@ local function new(req)
         ip,
         os.time(),
         os.time(),
-        info and urlDecode(info) or nil
+        req:post_param(nil)
     }))
 end
 
 local function get(req)
-    local token, ip, info = req:param('token'), req:param('ip'), req:param('info') -- ip and info is optional
+    local token, ip, extra = req:param('token'), req:param('ip'), req:param('extra') -- ip and extra is optional
     if (not token) then return rendError(req, 'token not found', 'token_not_found'); end
 
     local updateData = { { '=', sBox.col.activity, os.time() } }
-    if (info and info ~= '') then table.insert(updateData, { '=', sBox.col.info, urlDecode(info) }) end
+    if (extra and extra ~= '') then table.insert(updateData, { '=', sBox.col.extra, urlDecode(extra) }) end
     if (ip and ip ~= '') then table.insert(updateData, { '=', sBox.col.ip, ip }) end
 
     local tuple = sBox.space:update(token, updateData)

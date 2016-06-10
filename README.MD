@@ -10,7 +10,7 @@ Already done! Just use it like this:
 ```json
 {
   "ip": "192.168.1.1",
-  "info": null,
+  "extra": null,
   "user_id": 1,
   "create": 1464909151,
   "activity": 1464909151,
@@ -21,7 +21,7 @@ Already done! Just use it like this:
 ```json
 {
   "ip": "192.168.1.1",
-  "info": null,
+  "extra": null,
   "user_id": 1,
   "create": 1464909151,
   "activity": 1464909999,
@@ -47,7 +47,7 @@ user | `id` | Get all sessions for the user | [SessionObject](#sessionobject)[] 
 ```
 {
   "ip": string // IP-address of user,
-  "info": null,
+  "extra": null,
   "user_id": int,
   "create": int // create session timestamp,
   "activity": int // last timestamp of get request for current session,

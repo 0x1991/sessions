@@ -11,7 +11,7 @@ local sBox = {
         ip = 3,
         create = 4,
         activity = 5,
-        info = 6
+        extra = 6
     },
     index = {
         token = 'token',
