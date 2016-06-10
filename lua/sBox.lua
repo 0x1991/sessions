@@ -15,7 +15,8 @@ local sBox = {
     },
     index = {
         token = 'token',
-        userId = 'user_id'
+        userId = 'user_id',
+        ip = 'ip'
     },
     space = box.schema.create_space('sessions', { if_not_exists = true })
 }
@@ -23,6 +24,7 @@ local sBox = {
 box.once('sessions_index', function()
     sBox.space:create_index(sBox.index.token, { type = 'HASH', parts = { sBox.col.token, 'STR' } })
     sBox.space:create_index(sBox.index.userId, { unique = false, parts = { sBox.col.userId, 'NUM' } })
+    sBox.space:create_index(sBox.index.ip, { unique = false, parts = { sBox.col.ip, 'STR' } })
 end)
 box.schema.user.grant('guest', 'read,write,execute', 'universe', nil, { if_not_exists = true })
 
