@@ -42,6 +42,7 @@ new* | `user_id` <br> `ip` | Create new session | [SessionObject](#sessionobject
 get* | `token` <br> `ip` *optional* | Get existing session | [SessionObject](#sessionobject) | `token_not_found`
 del | `token` | Del existing session | [SessionObject](#sessionobject) | `token_not_found`
 user | `id` | Get all sessions for the user | [SessionObject](#sessionobject)[] | `invalid_user_id`
+ip | `ip` | Get all sessions by IP | [SessionObject](#sessionobject)[] | `invalid_ip`
 
 ##### \* Support optional extra params:
 `new` and `get` methods allow inserting extra data for the session. Example for **request** by PHP:
