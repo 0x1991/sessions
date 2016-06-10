@@ -17,7 +17,7 @@ local function tuple2Json(tuple)
         create = tuple[sBox.col.create],
         activity = tuple[sBox.col.activity],
         ip = ip and ip or json.NULL,
-        extra = next(extra) and extra or json.NULL
+        extra = extra and (next(extra) and extra or json.NULL) or json.NULL
     }
 end
 
