@@ -92,3 +92,41 @@ echo file_get_contents('http://localhost/get?token=61494096-9af7-49ba-9fb4-e89c0
 Expiration
 ----------
 Sessions removed automatically after 180 days inactivity by `get` requests
+
+Tarantool backup / restore
+--------------------------
+
+#### Backup
+Creating tarantool snapshot:
+
+```
+docker exec -it sessions_tarantool_1 /bin/bash
+tarantool
+require('console').connect('localhost:3301')
+box.snapshot()
+```
+
+Copying snapshot:
+
+В контейнере, в директории /data появился файл ...snap, если их несколько - нужен последний. Очищаем /share и копируем:
+
+```
+rm -rf /share/* && cp /data/...snap /share/
+```
+
+#### Restore
+
+Stop container
+```
+docker stop sessions_tarantool_1
+```
+
+Remove all from /data, and copy from /share:
+```
+docker run --volumes-from sessions_tarantool-data_1 --rm -v $PWD/share:/share busybox sh -c "rm -rf /data/* && cp /share/* /data/"
+```
+
+Run if needed
+```
+docker start sessions_tarantool_1
+```
