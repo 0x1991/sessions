@@ -108,7 +108,7 @@ box.snapshot()
 
 Copying snapshot:
 
-В контейнере, в директории /data появился файл ...snap, если их несколько - нужен последний. Очищаем /share и копируем:
+Inside the container in the directory `/data` file appeared `...snap`, if more than one - you need a last. Clean `/share` and copy:
 
 ```
 rm -rf /share/* && cp /data/...snap /share/
