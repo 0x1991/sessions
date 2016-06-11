@@ -1,3 +1,7 @@
+Example use case
+----------------
+You have the mobile application or web-site, and you need to implement user profiling system. So, for that you create users database, and next step is realise **users-sesions logic**. This one repository implement **users-sesions logic**.
+
 Quick start
 -----------
 Up docker-compose: 
