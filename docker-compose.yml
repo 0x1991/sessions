@@ -2,6 +2,7 @@ tarantool:
   image: tarantool/tarantool
   volumes:
     - ./lua:/lua
+    - ./share:/share
   volumes_from:
     - tarantool-data
   command: /usr/bin/tarantool /lua/boot.lua
