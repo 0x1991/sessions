@@ -1,11 +1,11 @@
 tarantool:
-  image: tarantool/tarantool
+  image: tarantool/tarantool:1.6
   volumes:
-    - ./lua:/lua
+    - ./lua:/opt/tarantool/lua
     - ./share:/share
   volumes_from:
     - tarantool-data
-  command: /usr/bin/tarantool /lua/boot.lua
+  command: /usr/local/bin/tarantool /opt/tarantool/lua/boot.lua
 
 tarantool-data:
   image: busybox
