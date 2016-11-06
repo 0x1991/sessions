@@ -3,7 +3,8 @@ local fiber = require 'fiber'
 box.cfg {
     work_dir = "/data",
     listen = 3301,
-    slab_alloc_arena = 0.256
+    slab_alloc_arena = 0.256,
+    snapshot_period = 3600
 }
 
 local sBox = {
